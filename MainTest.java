@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MainTest
 {
     public static void main(String[] args)
@@ -14,7 +16,17 @@ public class MainTest
    System.out.println("1 : "+paris.estDansLHemisphrerNord());
    System.out.println("2 : "+paris.estPlusALOuest(brest));
    System.out.println("3 : "+paris.estPlusALEst(brest));
-   System.out.println();
+   System.out.println("4 : "+paris.calculerDistance(marseille));
+   
+   Set<Ville> setVille = new HashSet();
+   setVille.add( new Ville("Paris"     , 48.856614, 2.3522219) );
+   setVille.add( new Ville("Brest"     , 48.4084597,-4.5347058) );
+   setVille.add( new Ville("Paris"     , 48.856614, 2.3522219) );
+   System.out.println(setVille);
+   List<Ville> listDeVille = new ArrayList<Ville>();
+   listDeVille=Arrays.asList(paris,brest,lille,strasbourg);
+   System.out.println( "5 : "+Arrays.deepToString(Ville.matrixDistance(listDeVille)).replaceAll("\\], \\[", "],\n [")) ;
+   
     }
 
-}
+} 

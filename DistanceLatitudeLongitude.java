@@ -7,10 +7,9 @@ public class DistanceLatitudeLongitude {
 			double latitude2,
 			double longitude2 )
 	{
-		return Math.acos(
-				Math.sin(latitude1)*Math.sin(latitude2)
-			  + Math.cos(latitude1)*Math.cos(latitude2)*Math.cos(longitude1 - longitude2)
-				);
+		double intermediate_value = Math.sin(latitude1)*Math.sin(latitude2)
+				  + Math.cos(latitude1)*Math.cos(latitude2)*Math.cos(longitude1 - longitude2);
+		return Math.acos( Math.min( Math.max(intermediate_value, -1), 1 ) );
 	}
 	
 	private static double distanceKilometriqueDepuisRadian(

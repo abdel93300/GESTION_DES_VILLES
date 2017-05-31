@@ -27,50 +27,97 @@ public class Ville {
 		return !this.estPlusALEst(ville); 
 	}
 	public boolean estPlusAuSud (Ville ville) {
-		return !estPlusAuNordQue(ville); 
+		return !this.estPlusAuNordQue(ville); 
 	}
-	
+
 	public double calculerDistance(Ville ville) {
 		return DistanceLatitudeLongitude.distanceKilometriqueDepuisDegre(
 				this.getLatitude(),
 				this.getLongitude(),
 				ville.getLatitude(),
 				ville.getLongitude()
-				
+
 				);
 	}
-	public String villeLaPlusProche(List<Ville> listville) {
-			for (Iterator<Ville> l = listville.iterator(); l.hasNext();) {
-				Ville ville = (Ville) l.next();
-						
-				if (DistanceLatitudeLongitude.distanceKilometriqueDepuisDegre(
-						this.getLatitude(),
-						this.getLongitude(),
-						ville.getLatitude(),
-						ville.getLongitude()) = 0.) {
-					
-				}
-					
-								}
-			return nom;
-	};
+	/*
+	 * Boucle sur la liste des villes
+	 *    boucle sur la même liste de ville
+	 *    calcul
+	 */	
+	// recherche de la ville la plus proche
+	// au départ on instancie la villeDistanceMin
+	// à partir de la distance de la 1ère ville 
+	// si on trouve une distance < 
+	public Ville villeLaPlusProche(List<Ville> listVille) {
+		Ville villeDistanceMin = listVille.get(0);
+		for (Ville ville : listVille) {
+			if (calculerDistance(ville)<calculerDistance(villeDistanceMin))
+			{ 
+				villeDistanceMin = ville;
+			}
+			else {/* rien */}
+		}
+		return villeDistanceMin;
+	}
+// création d'une table à 2D contenant les distances à partir d'une liste
+// de ville 	
+	public static double [][] matrixDistance(List<Ville> listVille){
+		double matrixDist [][]=new double[listVille.size()] [listVille.size()] ;
+		for (int i = 0; i != listVille.size(); ++i) {
+			System.out.println("Ligne n° : "+i);
+			for (int j = 0; j != listVille.size(); ++j) {
+				 matrixDist[i][j]= listVille.get(i).calculerDistance(listVille.get(j));
+				 System.out.println("Colonne n° : "+j);
+				 System.out.println(" Valeur : "+matrixDist[i][j]);
+			}
+			matrixDist[i][i] = 0;
+		}
+		return  matrixDist;
+	}
 	
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public double getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-	public double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-}
+
+		public String getNom() {
+			return nom;
+		}
+		public void setNom(String nom) {
+			this.nom = nom;
+		}
+		public double getLongitude() {
+			return longitude;
+		}
+		public void setLongitude(double longitude) {
+			this.longitude = longitude;
+		}
+		public double getLatitude() {
+			return latitude;
+		}
+		public void setLatitude(double latitude) {
+			this.latitude = latitude;
+		}
+		
+		@Override
+		public int hashCode() {
+			return nom.hashCode();
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Ville other = (Ville) obj;
+			if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+				return false;
+			if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+				return false;
+			if (nom == null) {
+				if (other.nom != null)
+					return false;
+			} else if (!nom.equals(other.nom))
+				return false;
+			return true;
+		}
+		}
