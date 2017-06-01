@@ -31,7 +31,7 @@ public class FileReaderAdapter {
 		List<SessionFormation> listeSessionFormations = fileReaderAdapter.readFromFile(
 				"ressource/sessionFormations.csv", SessionFormation.class);
 		
-		
+ 		
 		for(OrganismeFormation organismeFormation : listeCentreDeFormation)
 		{
 			System.out.println( organismeFormation.getResponsable().getNom() );
@@ -186,7 +186,7 @@ public class FileReaderAdapter {
 				setterName + " n'a pas été trouvé.";
 		System.err.println(errorMsg);
 		throw new Exception(errorMsg);
-
+ 
 	}
 
 
